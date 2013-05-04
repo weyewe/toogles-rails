@@ -1,0 +1,26 @@
+angular.module('templates', []).run(['$templateCache', function($templateCache) {
+	console.log("I am here!");
+	<% root_path = Rails.root.join('app','assets','javascripts', 'templates').to_s %>
+	<% array = [] %>
+	console.log("root_path: <%= root_path %>");
+	<% Dir.glob(Rails.root.join('app','assets','javascripts','templates', '**' , '*')).each do |f| %> 
+
+		
+	  <% if not File.directory? f %>
+			<% object = {
+				:key =>   f.gsub( "#{root_path}/",  ''),
+				:value =>  File.read( f ) 
+			} %>
+	  
+			<% array.push object %> 
+	  <% end %>
+
+	<% end %>
+	
+	console.log("The array length: <%= array.length %>");
+	<% array.each do |object| %>
+		$templateCache.put( "<%= object[:key] %>", "<%= object[:value] %>");
+	<% end %>
+
+}]);
+ 

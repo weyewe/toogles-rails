@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CoffeeToogles</title>
+  
+</head>
+
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>Moron Toogles: Awesome Goggles for YouTube</title>
+    <meta name="description" content="Toogles is a pair of awesome goggles for YouTube. It's a super fast and clean alternative interface for YouTube so that you can watch and search YouTube without all the bulk that comes with YouTube.com."/>
+    <meta name="viewport" content="width=device-width"/>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400' rel='stylesheet' type='text/css'>
+
+		<%= stylesheet_link_tag    "application", :media => "all" %>
+	  <%= javascript_include_tag "application" %>
+	  <%= csrf_meta_tags %>
+	
+	
+    <!-- build:css styles/styles.css -->
+    <!-- <link rel="stylesheet" href="styles/foundation.css"/>
+    <link rel="stylesheet" href="styles/font-awesome.min.css"/>
+    <link rel="stylesheet" href="styles/toogles.css"/> -->
+    <!-- endbuild -->
+
+  </head>
+  <body class="ng-cloak" ng-app="tooglesApp">
+
+    <!--[if lt IE 8]>
+      <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+      <script src="scripts/vendor/es5-shim.min.js"></script>
+      <script src="scripts/vendor/json3.min.js"></script>
+    <![endif]-->
+
+    <div class="container row" ng-view></div>
+
+    <script src="http://www.youtube.com/iframe_api"></script>
+
+    <!-- build:js scripts/scripts.js -->
+    <!-- <script src="scripts/vendor/angular.min.js"></script>
+    <script src="scripts/vendor/angular-sanitize.min.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/list.js"></script>
+    <script src="scripts/controllers/view.js"></script>
+    <script src="scripts/services/youtube.js"></script>
+    <script src="scripts/filters/htmlify.js"></script>
+    <script src="scripts/directives/scroll.js"></script> -->
+    <!-- endbuild -->
+		<% root_path = Rails.root.join('app','assets','javascripts', 'templates').to_s %>
+		<% array = [] %>
+		
+		<% Dir.glob(Rails.root.join('app','assets','javascripts','templates', '**' , '*')).each do |f| %>
+			<% if not File.directory? f %>
+				<% key = f.gsub( "#{root_path}/",  '') %>
+				<% value = File.read( f )  %>
+				
+				
+				<script type="text/ng-template" id="templates/<%= key %>">
+					<%= value.html_safe %>
+				</script> 
+				
+	  
+		  <% end %>
+
+		<% end %> 
+ 
+  </body>
+</html>
